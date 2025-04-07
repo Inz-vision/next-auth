@@ -1,17 +1,6 @@
 import mongoose from 'mongoose';
 
-let initialized = false;
-
-export const connect = async () => {
-  mongoose.set('strictQuery', true);
-
-  if (initialized) {
-    console.log('MongoDB already connected');
-    return mongoose.connection; // Return the existing connection
-  }
-
-  import mongoose from 'mongoose';
-
+// This file is responsible for connecting to MongoDB using Mongoose
 let initialized = false;
 
 export const connect = async () => {
@@ -35,5 +24,4 @@ export const connect = async () => {
     console.log('MongoDB connection error:', error);
     throw error; // Re-throw the error for better error handling upstream
   }
-};
 };
