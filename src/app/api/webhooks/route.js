@@ -3,6 +3,10 @@ import { headers } from 'next/headers';
 import { createOrUpdateUser, deleteUser } from '@/lib/actions/user';
 import { connect } from '@/lib/mongodb/mongoose';
 
+export async function GET() {
+    return new Response('Webhook route is working!', { status: 200 });
+  }
+
 export async function POST(req) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
@@ -33,7 +37,7 @@ export async function POST(req) {
       'svix-id': svix_id,
       'svix-timestamp': svix_timestamp,
       'svix-signature': svix_signature,
-    });
+    }, { tolerance: 300 }); // Allow a 5-minute tolerance (300 seconds)
   } catch (err) {
     console.error('Error verifying webhook:', err);
     return new Response('Error occurred', { status: 400 });
